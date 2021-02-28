@@ -1,2 +1,2 @@
 # Só o básico   
-![Damage itens lol](https://i.imgur.com/pwqjmjC.png)
+<img src="https://i.imgur.com/pwqjmjC.png" width="400">
