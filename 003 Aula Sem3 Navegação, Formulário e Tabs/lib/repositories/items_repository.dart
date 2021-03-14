@@ -33,13 +33,13 @@ class ItemsRepository {
           cor: Colors.tealAccent[700]),
       Item(
           icone:
-              'https://static.wikia.nocookie.net/leagueoflegends/images/b/b9/Bloodthirster_item_HD.png/revision/latest/scale-to-width-down/64?cb=20201110221115',
+              'https://static.wikia.nocookie.net/leagueoflegends/images/b/b9/Bloodthirster_item_HD.png',
           dano: 55,
           nome: 'Bloodthirsteredit',
           cor: Colors.redAccent[700]),
       Item(
           icone:
-              'https://static.wikia.nocookie.net/leagueoflegends/images/9/90/Ravenous_Hydra_item_HD.png/revision/latest/scale-to-width-down/64?cb=20201111001432',
+              'https://static.wikia.nocookie.net/leagueoflegends/images/9/90/Ravenous_Hydra_item_HD.png',
           dano: 65,
           nome: 'Ravenous Hydra',
           cor: Colors.deepOrangeAccent[700]),

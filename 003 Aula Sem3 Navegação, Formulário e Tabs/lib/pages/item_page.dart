@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fluttuando/models/items.dart';
+import '../models/items.dart';
+import 'package:fluttuando/models/passive.dart';
+import '../models/passive.dart';
+import 'add_passive_page.dart';
 
 class ItemPage extends StatefulWidget {
   Item item;
@@ -10,6 +13,30 @@ class ItemPage extends StatefulWidget {
 }
 
 class _ItemPageState extends State<ItemPage> {
+  passivepage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => AddPassivePage(
+            item: widget.item,
+            onSave:
+                this.addPassive), //onSave é a referencia do metodo addPassive
+      ),
+    );
+  }
+
+  addPassive(Passive pasive) {
+    //metodo que salva a passiva
+    setState(() {
+      widget.item.pasives.add(pasive);
+    });
+
+    Navigator.pop(context);
+
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("Salvo com sucesso")));
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -18,6 +45,7 @@ class _ItemPageState extends State<ItemPage> {
         appBar: AppBar(
           backgroundColor: widget.item.cor,
           title: Text(widget.item.nome),
+          actions: [IconButton(icon: Icon(Icons.add), onPressed: passivepage)],
           bottom: TabBar(
             tabs: [
               Tab(
@@ -52,10 +80,31 @@ class _ItemPageState extends State<ItemPage> {
                 )
               ],
             ),
-            Scaffold()
+            Passivas()
           ],
         ),
       ),
     );
+  }
+
+  Widget Passivas() {
+    final quantidade = widget.item.pasives.length;
+
+    return quantidade == 0
+        ? Container(
+            child: Center(
+              child: Text('Nenhuma Passiva.'),
+            ),
+          )
+        : ListView.separated(
+            itemBuilder: (BuildContext context, int index) {
+              return ListTile(
+                leading: Icon(Icons.emoji_emotions),
+                title: Text(widget.item.pasives[index].nome),
+                trailing: Text(widget.item.pasives[index].incremento),
+              );
+            },
+            separatorBuilder: (_, __) => Divider(),
+            itemCount: quantidade);
   }
 }
