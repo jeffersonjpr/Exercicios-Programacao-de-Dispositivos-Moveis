@@ -1,12 +1,14 @@
+import 'package:cbloiro/repositories/times_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import '../models/times.dart';
 import '../models/titulos.dart';
 
 class AddTituloPage extends StatefulWidget {
   Time time;
-  ValueChanged<Titulo> onSave;
 
-  AddTituloPage({Key key, this.time, this.onSave}) : super(key: key);
+  AddTituloPage({Key key, this.time}) : super(key: key);
 
   @override
   _AddTituloPageState createState() => _AddTituloPageState();
@@ -14,9 +16,25 @@ class AddTituloPage extends StatefulWidget {
 
 class _AddTituloPageState extends State<AddTituloPage> {
   final _nome = TextEditingController();
-  final _incremento = TextEditingController();
+  final _ano = TextEditingController();
 
   final _formkey = GlobalKey<FormState>();
+
+  save() {
+    Provider.of<TimesRepository>(context, listen: false).addTitulo(
+        //recupera os dados da widget superior
+        time: widget.time,
+        titulos: Titulo(nome: _nome.text, ano: _ano.text));
+    //listen é false pq so estamos adicionando ao repositório e não renderizando
+
+    /* Navigator.pop(context); metodo antigo, novo get abaixo*/
+    Get.back();
+
+    /* ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("Salvo com sucesso")));  SnackBar antiga, novo get abaixo*/
+    Get.snackbar("Sucesso", "Titulo cadastrado !",
+        backgroundColor: Colors.blue[300], snackPosition: SnackPosition.BOTTOM);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +67,7 @@ class _AddTituloPageState extends State<AddTituloPage> {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
               child: TextFormField(
-                controller: _incremento,
+                controller: _ano,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Ano',
@@ -72,11 +90,7 @@ class _AddTituloPageState extends State<AddTituloPage> {
                 onPressed: () {
                   //oque acontece quando o botão salvar é clicado
                   if (_formkey.currentState.validate()) {
-                    //veirifca se o formlário esta preenchido (validado)
-                    widget.onSave(Titulo(
-                        //metodo que foi passado como referencia para adicionar
-                        nome: _nome.text,
-                        ano: _incremento.text));
+                    save();
                   }
                 },
                 child: Row(

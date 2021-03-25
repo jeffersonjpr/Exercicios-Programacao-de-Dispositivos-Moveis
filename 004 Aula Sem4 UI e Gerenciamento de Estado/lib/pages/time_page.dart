@@ -1,7 +1,11 @@
+import 'package:cbloiro/repositories/times_repository.dart';
+import 'package:cbloiro/widgets/brasao.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import '../models/times.dart';
-import '../models/titulos.dart';
 import 'add_titulo_page..dart';
+import 'edit_titulo_page.dart';
 
 class TimePage extends StatefulWidget {
   Time time;
@@ -13,27 +17,14 @@ class TimePage extends StatefulWidget {
 
 class _TimePageState extends State<TimePage> {
   passivepage() {
-    Navigator.push(
+    Get.to(() => AddTituloPage(time: widget.time));
+
+    /* Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => AddTituloPage(
-            time: widget.time,
-            onSave:
-                this.addtitulo), //onSave é a referencia do metodo addPassive
+        builder: (_) => AddTituloPage(time: widget.time),
       ),
-    );
-  }
-
-  addtitulo(Titulo titulo) {
-    //metodo que salva a passiva
-    setState(() {
-      widget.time.titulos.add(titulo);
-    });
-
-    Navigator.pop(context);
-
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text("Salvo com sucesso")));
+    ); */
   }
 
   @override
@@ -65,12 +56,9 @@ class _TimePageState extends State<TimePage> {
               children: [
                 Padding(
                     padding: EdgeInsets.all(24),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20.0),
-                      child: Image.network(
-                        widget.time.icone,
-                        height: 300,
-                      ),
+                    child: Brasao(
+                      image: widget.time.icone,
+                      width: 250.0,
                     )),
                 Text(
                   widget.time.nome,
@@ -90,8 +78,12 @@ class _TimePageState extends State<TimePage> {
   }
 
   Widget Titulos() {
-    final quantidade = widget.time.titulos.length;
-
+    final time = Provider.of<TimesRepository>(
+            context) //instancia do provider litening true pq queremos rebuildar
+        //assim ele consome o estado dinamico timesrepository
+        .times
+        .firstWhere((t) => t.nome == widget.time.nome);
+    final quantidade = time.titulos.length;
     return quantidade == 0
         ? Container(
             child: Center(
@@ -102,8 +94,14 @@ class _TimePageState extends State<TimePage> {
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
                 leading: Icon(Icons.sports_esports_rounded),
-                title: Text(widget.time.titulos[index].nome),
-                trailing: Text(widget.time.titulos[index].ano),
+                title: Text(time.titulos[index].nome),
+                trailing: Text(time.titulos[index].ano),
+                onTap: () {
+                  Get.to(
+                    EditTituloPage(titulo: time.titulos[index]),
+                    fullscreenDialog: true,
+                  );
+                },
               );
             },
             separatorBuilder: (_, __) => Divider(),

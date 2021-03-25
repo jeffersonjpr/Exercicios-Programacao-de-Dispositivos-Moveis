@@ -1,17 +1,23 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import '../models/times.dart';
 import '../models/titulos.dart';
 
-class ItemsRepository {
+class TimesRepository extends ChangeNotifier {
+  //ChangeNotifier Classe que notifica as widgets que estão usando esse repositório
   final List<Time> _times = [];
 
-  get items => this._times;
+  UnmodifiableListView<Time> get times => UnmodifiableListView(
+      _times); //UnmodifiableListView garante que a lista não é modificada, melhorando perfomance
 
-  void addStats({Time time, Titulo titulos}) {
-    time.titulos.add(titulos);
+  void addTitulo({Time time, Titulo titulos}) {
+    time.titulos.add(
+        titulos); //mudando um objeto do tipo time mas não notifica as widgets que precisão de atualização
+    notifyListeners(); //Quando uma mudança é feita, notifica as widgets que precisão de atualização
   }
 
-  ItemsRepository() {
+  TimesRepository() {
     _times.addAll([
       Time(
           icone: 'https://i.imgur.com/4pZ1Tgj.png',
@@ -54,5 +60,11 @@ class ItemsRepository {
           porctVitoria: 22,
           nome: 'Rensga'),
     ]);
+  }
+
+  void editTitulo({Titulo titulo, String nome, String ano}) {
+    titulo.ano = ano;
+    titulo.nome = nome;
+    notifyListeners(); //avisa todos que usam o repositório p/ atualizar
   }
 }
