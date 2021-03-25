@@ -1,7 +1,7 @@
-# App da aula Semana 4
-UI
-Introdução a Animações
-Gerenciamento de Estado
+# App da aula Semana 4    
+UI    
+Introdução a Animações    
+Gerenciamento de Estado    
 
 <p align="center">
   <img src="https://i.imgur.com/quvmunz.gif" width="300">
