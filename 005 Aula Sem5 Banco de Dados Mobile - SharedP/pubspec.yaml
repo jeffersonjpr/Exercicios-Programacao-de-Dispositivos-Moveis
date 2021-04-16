@@ -1,0 +1,30 @@
+name: cbloiro
+description: A new Flutter project.
+
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # se não passar a versão, o flutter pega a mais atual
+  provider: ^4.3.3
+  get: 
+  shared_preferences: ^2.0.5  #persistencia de dados mais simples
+
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
+
+  
