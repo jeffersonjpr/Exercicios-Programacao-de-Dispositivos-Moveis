@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "607365004430",
+    "project_id": "cbloiro-f781b",
+    "storage_bucket": "cbloiro-f781b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607365004430:android:135d03ed745dd9275b1ddf",
+        "android_client_info": {
+          "package_name": "io.anchieta.cbloiro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "607365004430-cij34frtd62l3spu5tc3kq0arg5jj381.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.anchieta.cbloiro",
+            "certificate_hash": "0c1a1b7e12f2ca31ccb95b7ff68c08f7f1bfb99c"
+          }
+        },
+        {
+          "client_id": "607365004430-p7jufrqr3dboe4nu07in29m7ffp4ke23.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMBpUrHrrIv8wAu-nFiZiLstPqycSe1BI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "607365004430-p7jufrqr3dboe4nu07in29m7ffp4ke23.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
